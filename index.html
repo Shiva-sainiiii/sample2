@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSJ - Premsons Jewellers | Rohtak's Premium Showroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'void': '#120303',
+          'maroon': '#3D0C0C',
+          'maroon-deep': '#2A0808',
+          'burgundy': '#800020',
+          'gold': '#D4AF37',
+          'gold-champagne': '#E6CA65',
+          'gold-soft': '#C9A54E',
+          'cream': '#F5F0E6',
+        },
+        fontFamily: {
+          'display': ['Cinzel', 'serif'],
+          'decorative': ['Cinzel Decorative', 'serif'],
+          'body': ['Inter', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  * { scroll-behavior: smooth; }
+  body { background-color: #120303; }
+
+  .texture-overlay {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(212,175,55,0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(128,0,32,0.15) 0%, transparent 50%);
+  }
+
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #C9A54E 0%, #F4E5A1 25%, #D4AF37 50%, #E6CA65 75%, #C9A54E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gold-border-glow {
+    box-shadow: 0 0 0 1px rgba(212,175,55,0.3), 0 4px 20px rgba(0,0,0,0.4);
+    transition: all 0.4s ease;
+  }
+  .gold-border-glow:hover {
+    box-shadow: 0 0 25px rgba(212,175,55,0.35), 0 0 0 1px rgba(212,175,55,0.6), 0 8px 30px rgba(0,0,0,0.5);
+    transform: translateY(-4px);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #E6CA65 50%, #C9A54E 100%);
+    transition: all 0.3s ease;
+  }
+  .btn-gold:hover {
+    box-shadow: 0 0 20px rgba(212,175,55,0.5);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .ornate-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  }
+  .ornate-divider::before {
+    content: '❖';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #120303;
+    color: #D4AF37;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .seal-pulse {
+    animation: sealPulse 3s ease-in-out infinite;
+  }
+  @keyframes sealPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+
+  .hero-bg {
+    background:
+      linear-gradient(180deg, rgba(18,3,3,0.3) 0%, rgba(18,3,3,0.75) 60%, #120303 100%),
+      radial-gradient(ellipse at center, #4A0404 0%, #2A0808 55%, #120303 100%);
+  }
+
+  .card-texture {
+    background: linear-gradient(155deg, #1F0606 0%, #2A0808 100%);
+  }
+
+  ::selection { background: #D4AF37; color: #120303; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up, .seal-pulse { animation: none; opacity: 1; transform: none; }
+  }
+
+  .scheme-card {
+    background: linear-gradient(135deg, #2A0808 0%, #1A0505 100%);
+    border: 1px solid rgba(212,175,55,0.25);
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #E6CA65;
+    outline-offset: 2px;
+  }
+
+  /* Rate bar marquee */
+  .rate-track {
+    display: flex;
+    width: max-content;
+    animation: rateScroll 22s linear infinite;
+  }
+  @keyframes rateScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rate-track { animation: none; }
+  }
+
+  /* Floating WhatsApp button */
+  .wa-float {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 60;
+    box-shadow: 0 0 0 1px rgba(212,175,55,0.5), 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .wa-float:hover { box-shadow: 0 0 22px rgba(212,175,55,0.55), 0 8px 24px rgba(0,0,0,0.6); }
+
+  .range-gold {
+    accent-color: #D4AF37;
+  }
+</style>
+</head>
+<body class="bg-void text-cream font-body texture-overlay">
+
+  <!-- TOP UTILITY BAR -->
+  <div class="hidden sm:flex items-center justify-between px-6 py-2 bg-maroon-deep border-b border-gold/20 text-xs">
+    <a href="tel:+918603335000" class="flex items-center gap-2 text-cream/80 hover:text-gold transition">
+      <span class="text-gold">📞</span> +91 86033 35000
+    </a>
+    <div class="flex items-center gap-2 text-gold-champagne">
+      <span class="w-1.5 h-1.5 rounded-full bg-gold seal-pulse"></span>
+      BIS Hallmarked · Legacy of Fine Craftsmanship
+    </div>
+    <a href="#" target="_blank" class="text-cream/80 hover:text-gold transition">Instagram ↗</a>
+  </div>
+
+  <!-- GOLD / DIAMOND RATE BAR -->
+  <div class="bg-void border-b border-gold/10 overflow-hidden py-1.5">
+    <div class="rate-track text-[11px] sm:text-xs font-display tracking-wide text-gold-champagne whitespace-nowrap">
+      <span class="flex items-center gap-8 pr-8">
+        <span>✦ Today's Rate — 22K Gold: <strong class="text-gold">₹7,215 / gm</strong></span>
+        <span>✦ 24K Gold: <strong class="text-gold">₹7,870 / gm</strong></span>
+        <span>✦ Diamond (Solitaire, per ct approx): <strong class="text-gold">₹45,000+</strong></span>
+        <span>✦ Rates updated daily · Visit showroom for exact quote</span>
+      </span>
+      <span class="flex items-center gap-8 pr-8" aria-hidden="true">
+        <span>✦ Today's Rate — 22K Gold: <strong class="text-gold">₹7,215 / gm</strong></span>
+        <span>✦ 24K Gold: <strong class="text-gold">₹7,870 / gm</strong></span>
+        <span>✦ Diamond (Solitaire, per ct approx): <strong class="text-gold">₹45,000+</strong></span>
+        <span>✦ Rates updated daily · Visit showroom for exact quote</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- HEADER / NAV -->
+  <header class="sticky top-0 z-50 bg-void/95 backdrop-blur-md border-b border-gold/20">
+    <nav class="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 max-w-7xl mx-auto gap-3">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-gold flex items-center justify-center text-gold font-display text-base sm:text-lg leading-none">
+          <span class="translate-y-[-1px] text-xs sm:text-sm font-bold tracking-tight">PSJ</span>
+        </div>
+        <div class="min-w-0">
+          <h1 class="font-display text-base sm:text-xl gold-gradient-text tracking-wide leading-tight whitespace-nowrap">Premsons Jewellers</h1>
+          <p class="text-[9px] sm:text-xs text-cream/50 tracking-widest uppercase whitespace-nowrap overflow-hidden text-ellipsis">Railway Road · Rohtak</p>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-8 font-display text-sm tracking-wider text-cream/80 shrink-0">
+        <a href="#scheme" class="hover:text-gold transition">Investment Scheme</a>
+        <a href="#collections" class="hover:text-gold transition">Collections</a>
+        <a href="#about" class="hover:text-gold transition">About</a>
+        <a href="#contact" class="hover:text-gold transition">Location</a>
+      </div>
+      <a href="https://wa.me/918603335000" target="_blank" class="shrink-0 btn-gold text-maroon-deep font-semibold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-display tracking-wide whitespace-nowrap">
+        WhatsApp
+      </a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-bg relative overflow-hidden px-6 py-20 sm:py-28 text-center">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <p class="fade-up text-gold-champagne text-xs sm:text-sm tracking-[0.3em] uppercase mb-5 font-display">Rohtak · Haryana</p>
+      <h2 class="fade-up delay-1 font-display font-black text-4xl sm:text-6xl lg:text-7xl gold-gradient-text leading-tight mb-6">
+        Rings That Look Delicate,<br class="hidden sm:block"> Feel Luxurious
+      </h2>
+      <p class="fade-up delay-2 text-cream/70 text-base sm:text-lg max-w-xl mx-auto mb-4 leading-relaxed">
+        A legacy of fine craftsmanship, heritage, and everlasting elegance — from heavy bridal sets to lightweight, everyday-grace jewellery.
+      </p>
+      <p class="fade-up delay-2 text-gold text-sm mb-10 font-display tracking-wide">One of Rohtak Railway Road's most prestigious &amp; premium showrooms</p>
+      <div class="fade-up delay-3 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
+        <a href="#scheme" class="btn-gold text-maroon-deep font-bold px-7 py-4 rounded-full font-display tracking-wide w-full sm:w-auto">
+          Join +One Plan
+        </a>
+        <a href="#collections" class="border border-gold/50 text-gold px-7 py-4 rounded-full font-display tracking-wide hover:bg-gold/10 transition w-full sm:w-auto">
+          Explore Bridal Edit
+        </a>
+        <a href="https://wa.me/918603335000" target="_blank" class="border border-gold/50 text-gold px-7 py-4 rounded-full font-display tracking-wide hover:bg-gold/10 transition w-full sm:w-auto">
+          Book Direct Consultation
+        </a>
+      </div>
+    </div>
+
+    <!-- Decorative gold rings floating -->
+    <div class="absolute top-1/4 left-8 w-24 h-24 rounded-full border-4 border-gold/10 hidden lg:block"></div>
+    <div class="absolute bottom-1/4 right-12 w-32 h-32 rounded-full border-4 border-gold/10 hidden lg:block"></div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section id="about" class="px-6 py-16 border-y border-gold/10 bg-maroon-deep/40">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-6">
+      <div class="card-texture gold-border-glow rounded-2xl p-7 text-center">
+        <div class="text-gold text-3xl mb-3">✦</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">BIS Hallmark 100%</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Purity assurance on every gold piece we sell.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7 text-center">
+        <div class="text-gold text-3xl mb-3">📶</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">Free In-Store Wi-Fi</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Browse and relax while our team assists you.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7 text-center">
+        <div class="text-gold text-3xl mb-3">🛠️</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">Onsite Repair Service</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Quick, trusted repairs done right at the showroom.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7 text-center">
+        <div class="text-gold text-3xl mb-3">💳</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">All Payments Accepted</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Cards, UPI &amp; NFC — pay however suits you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECTIONS -->
+  <section id="collections" class="px-6 py-20 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-gold-champagne text-xs tracking-[0.3em] uppercase mb-3 font-display">Our Collections</p>
+      <h2 class="font-display text-3xl sm:text-4xl gold-gradient-text">Crafted For Every Occasion</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500&q=75&auto=format&fit=crop" alt="Bridal Ranihaars" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+        </div>
+        <div class="p-4 text-center">
+          <h4 class="font-display text-gold text-sm tracking-wide">The Bridal Suite</h4>
+          <p class="text-cream/50 text-xs mt-1">Antique Kundan &amp; Meenakari sets</p>
+        </div>
+      </div>
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=75&auto=format&fit=crop" alt="Lightweight Rings" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+        </div>
+        <div class="p-4 text-center">
+          <h4 class="font-display text-gold text-sm tracking-wide">Everyday Luxury</h4>
+          <p class="text-cream/50 text-xs mt-1">Delicate rings, diamond pendants</p>
+        </div>
+      </div>
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=75&auto=format&fit=crop" alt="Heritage Bangles" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+        </div>
+        <div class="p-4 text-center">
+          <h4 class="font-display text-gold text-sm tracking-wide">Heritage Bangles &amp; Kadas</h4>
+          <p class="text-cream/50 text-xs mt-1">Traditional Peachli-style craft</p>
+        </div>
+      </div>
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=75&auto=format&fit=crop" alt="Certified Diamonds" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+        </div>
+        <div class="p-4 text-center">
+          <h4 class="font-display text-gold text-sm tracking-wide">Certified Diamonds</h4>
+          <p class="text-cream/50 text-xs mt-1">Sterling silver &amp; fine ornaments</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-cream/40 text-xs mt-6 mb-8">Also available: Pearl &amp; Emerald Kundan sets, Amber dangle earrings, Moonstone spiral silver earrings</p>
+  </section>
+
+  <div class="ornate-divider max-w-4xl mx-auto"></div>
+
+  <!-- 12+ONE INVESTMENT SCHEME + CALCULATOR -->
+  <section id="scheme" class="px-6 py-20 max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <p class="text-gold-champagne text-xs tracking-[0.3em] uppercase mb-3 font-display">Savings &amp; Investment Scheme</p>
+      <h2 class="font-display text-3xl sm:text-4xl gold-gradient-text">12 + One Investment Plan</h2>
+    </div>
+    <div class="scheme-card rounded-2xl p-8 sm:p-10">
+      <p class="text-cream/70 text-center leading-relaxed max-w-2xl mx-auto mb-8">
+        Pay 12 equal monthly installments — and on the 13th month, PSJ adds a special bonus value on top. The longer you save, the more you gain toward your next gold purchase.
+      </p>
+
+      <div class="ornate-divider mb-8"></div>
+
+      <!-- Calculator -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
+        <div>
+          <label class="block text-cream/70 text-xs uppercase tracking-wider mb-3 font-display">Choose Monthly Amount</label>
+          <input type="range" id="calc-amount" min="1000" max="20000" step="500" value="5000" class="w-full range-gold mb-3">
+          <p class="font-display text-gold text-2xl sm:text-3xl" id="calc-amount-display">₹5,000 / month</p>
+          <p class="text-cream/40 text-xs mt-2">Adjust the slider to see your estimated plan value.</p>
+        </div>
+        <div class="bg-void/50 border border-gold/25 rounded-xl p-6 text-center">
+          <p class="text-cream/50 text-xs uppercase tracking-wider mb-2 font-display">After 12 Months + Bonus Month</p>
+          <p class="font-display text-gold-champagne text-3xl sm:text-4xl mb-1" id="calc-total">₹65,000</p>
+          <p class="text-cream/50 text-xs">Total deposited: <span id="calc-deposited" class="text-cream/70">₹60,000</span></p>
+          <p class="text-gold text-xs mt-2 font-display">+ ₹5,000 Bonus Value on the 13th installment*</p>
+        </div>
+      </div>
+
+      <p class="text-cream/30 text-[11px] text-center mt-8">*Illustrative estimate only. Actual bonus/benefit value confirmed at enrollment as per current scheme terms.</p>
+
+      <div class="text-center mt-8">
+        <a href="https://wa.me/918603335000?text=Hi%2C%20I%27m%20interested%20in%20the%2012%2BOne%20Investment%20Plan%20at%20PSJ%20Premsons%20Jewellers." target="_blank" class="btn-gold text-maroon-deep font-bold px-8 py-3.5 rounded-full font-display tracking-wide inline-block">
+          Enroll Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornate-divider max-w-4xl mx-auto"></div>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="px-6 py-20 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-gold-champagne text-xs tracking-[0.3em] uppercase mb-3 font-display">Customer Love</p>
+      <h2 class="font-display text-3xl sm:text-4xl gold-gradient-text">What Our Customers Say</h2>
+      <div class="text-gold text-4xl sm:text-5xl tracking-wide mb-3">★★★★★</div>
+      <p class="font-display text-gold-champagne text-2xl sm:text-3xl mb-1">4.8 / 5</p>
+      <p class="text-cream/50 text-sm font-body">Trusted by families across Rohtak</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-lg mb-3">★★★★★</div>
+        <p class="text-cream/70 text-sm leading-relaxed mb-5">"Bridal set banwaya tha yahan se, finishing bahut premium thi. Everyone at the wedding was asking where we got it made."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-display">A</div>
+          <div>
+            <p class="text-gold-champagne text-sm font-display">Anita Malik</p>
+            <p class="text-cream/40 text-xs">Rohtak</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-lg mb-3">★★★★★</div>
+        <p class="text-cream/70 text-sm leading-relaxed mb-5">"12+One plan is genuinely a great deal — the bonus on the 13th installment made a real difference on my purchase."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-display">V</div>
+          <div>
+            <p class="text-gold-champagne text-sm font-display">Vikas Sharma</p>
+            <p class="text-cream/40 text-xs">Rohtak</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-lg mb-3">★★★★★</div>
+        <p class="text-cream/70 text-sm leading-relaxed mb-5">"Lightweight daily-wear collection is perfect for office. Staff explained hallmark details patiently, felt very trustworthy."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-display">P</div>
+          <div>
+            <p class="text-gold-champagne text-sm font-display">Priya Chaudhary</p>
+            <p class="text-cream/40 text-xs">Rohtak</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornate-divider max-w-4xl mx-auto"></div>
+
+  <!-- ENQUIRY FORM -->
+  <section id="enquiry" class="px-6 py-20 max-w-2xl mx-auto">
+    <div class="text-center mb-10">
+      <p class="text-gold-champagne text-xs tracking-[0.3em] uppercase mb-3 font-display">Get In Touch</p>
+      <h2 class="font-display text-3xl sm:text-4xl gold-gradient-text">Book a Consultation</h2>
+    </div>
+    <form id="enquiry-form" class="scheme-card rounded-2xl p-7 sm:p-10 space-y-6">
+      <div>
+        <label class="block text-cream/70 text-xs uppercase tracking-wider mb-2 font-display">Your Name</label>
+        <input type="text" id="en-name" required placeholder="Enter your name"
+          class="w-full bg-void/60 border border-gold/25 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:border-gold outline-none transition text-sm">
+      </div>
+      <div>
+        <label class="block text-cream/70 text-xs uppercase tracking-wider mb-2 font-display">Phone Number</label>
+        <input type="tel" id="en-phone" required placeholder="Enter your phone number"
+          class="w-full bg-void/60 border border-gold/25 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:border-gold outline-none transition text-sm">
+      </div>
+      <div>
+        <label class="block text-cream/70 text-xs uppercase tracking-wider mb-2 font-display">I'm Interested In</label>
+        <select id="en-interest" class="w-full bg-void/60 border border-gold/25 rounded-lg px-4 py-3 text-cream focus:border-gold outline-none transition text-sm">
+          <option>Bridal Collection</option>
+          <option>Everyday Lightweight Jewellery</option>
+          <option>12+One Investment Plan</option>
+          <option>Gold Exchange / Valuation</option>
+          <option>Something Else</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-cream/70 text-xs uppercase tracking-wider mb-2 font-display">Your Message</label>
+        <textarea id="en-message" rows="4" placeholder="Tell us what you're looking for..."
+          class="w-full bg-void/60 border border-gold/25 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:border-gold outline-none transition text-sm resize-none"></textarea>
+      </div>
+      <p id="en-error" class="hidden text-red-400 text-xs text-center">Please fill your name and phone number.</p>
+      <button type="submit" class="btn-gold text-maroon-deep font-bold w-full py-3.5 rounded-full font-display tracking-wide">
+        Send Enquiry on WhatsApp
+      </button>
+    </form>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" class="bg-maroon-deep border-t border-gold/20 px-6 py-16">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div>
+        <h3 class="font-display text-2xl gold-gradient-text mb-4">Visit Our Showroom</h3>
+        <p class="text-cream/70 leading-relaxed mb-6">
+          Shop No. 1389/5, Besides Regal Shoes,<br>
+          Railway Road, Station Diary Mohalla,<br>
+          Rohtak, Haryana – 124001
+        </p>
+        <div class="space-y-2 text-sm mb-6">
+          <p class="text-cream/60">📞 +91 86033 35000 (Official Hotline)</p>
+          <p class="text-cream/60">📞 +91 90348 89977 · +91 98962 77167</p>
+          <p class="text-cream/60">🕒 Mon – Sat: 10:00 AM – 8:30 PM · Sun: Closed</p>
+          <p class="text-cream/60">💳 All Major Cards · UPI · NFC Accepted</p>
+        </div>
+        <a href="#" target="_blank" class="text-gold hover:text-gold-champagne transition text-sm font-display tracking-wide">
+          @premsonsjeweller on Instagram ↗
+        </a>
+      </div>
+      <div class="rounded-xl overflow-hidden border border-gold/20 min-h-[220px]">
+        <iframe
+          src="https://www.google.com/maps?q=Railway+Road,+Station+Diary+Mohalla,+Rohtak,+Haryana+124001&output=embed"
+          width="100%" height="100%" style="border:0; min-height: 220px;"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+    <div class="ornate-divider max-w-4xl mx-auto my-10"></div>
+    <p class="text-center text-cream/30 text-xs">© 2026 PSJ - Premsons Jewellers · Railway Road, Rohtak · All Rights Reserved</p>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/918603335000" target="_blank" aria-label="Chat on WhatsApp"
+     class="wa-float w-14 h-14 rounded-full btn-gold text-maroon-deep flex items-center justify-center text-2xl">
+    💬
+  </a>
+
+  <script>
+    // 12+One Calculator
+    const amountSlider = document.getElementById('calc-amount');
+    const amountDisplay = document.getElementById('calc-amount-display');
+    const totalDisplay = document.getElementById('calc-total');
+    const depositedDisplay = document.getElementById('calc-deposited');
+
+    function formatINR(n) {
+      return '₹' + n.toLocaleString('en-IN');
+    }
+
+    function updateCalc() {
+      const monthly = parseInt(amountSlider.value, 10);
+      const deposited = monthly * 12;
+      const total = deposited + monthly; // 13th installment bonus = one month's value
+      amountDisplay.textContent = formatINR(monthly) + ' / month';
+      depositedDisplay.textContent = formatINR(deposited);
+      totalDisplay.textContent = formatINR(total);
+    }
+    amountSlider.addEventListener('input', updateCalc);
+    updateCalc();
+
+    // Enquiry form -> WhatsApp
+    document.getElementById('enquiry-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('en-name').value.trim();
+      const phone = document.getElementById('en-phone').value.trim();
+      const interest = document.getElementById('en-interest').value;
+      const message = document.getElementById('en-message').value.trim();
+      const errorEl = document.getElementById('en-error');
+
+      if (!name || !phone) {
+        errorEl.classList.remove('hidden');
+        return;
+      }
+      errorEl.classList.add('hidden');
+
+      const text = `Enquiry for PSJ - Premsons Jewellers%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AInterested In: ${encodeURIComponent(interest)}%0AMessage: ${encodeURIComponent(message || 'No additional details')}`;
+
+      window.open(`https://wa.me/918603335000?text=${text}`, '_blank');
+    });
+  </script>
+
+</body>
+</html>
