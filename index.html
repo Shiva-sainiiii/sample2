@@ -31,8 +31,33 @@
   }
 </script>
 <style>
+  :root {
+    --void: #120303;
+    --maroon: #3D0C0C;
+    --maroon-deep: #2A0808;
+    --burgundy: #800020;
+    --card-a: #1F0606;
+    --card-b: #2A0808;
+    --scheme-a: #2A0808;
+    --scheme-b: #1A0505;
+    --hero-mid: #4A0404;
+    --hero-edge: #2A0808;
+  }
+  html[data-theme="black"] {
+    --void: #060606;
+    --maroon: #161616;
+    --maroon-deep: #101010;
+    --burgundy: #262626;
+    --card-a: #151515;
+    --card-b: #0d0d0d;
+    --scheme-a: #171717;
+    --scheme-b: #0d0d0d;
+    --hero-mid: #1c1c1c;
+    --hero-edge: #101010;
+  }
+
   * { scroll-behavior: smooth; }
-  body { background-color: #120303; }
+  body { background-color: var(--void); transition: background-color 0.4s ease; }
 
   .texture-overlay {
     background-image:
@@ -103,23 +128,30 @@
 
   .hero-bg {
     background:
-      linear-gradient(180deg, rgba(18,3,3,0.3) 0%, rgba(18,3,3,0.75) 60%, #120303 100%),
-      radial-gradient(ellipse at center, #4A0404 0%, #2A0808 55%, #120303 100%);
+      linear-gradient(180deg, rgba(18,3,3,0.3) 0%, rgba(18,3,3,0.75) 60%, var(--void) 100%),
+      radial-gradient(ellipse at center, var(--hero-mid) 0%, var(--hero-edge) 55%, var(--void) 100%);
+    transition: background 0.4s ease;
   }
 
   .card-texture {
-    background: linear-gradient(155deg, #1F0606 0%, #2A0808 100%);
+    background: linear-gradient(155deg, var(--card-a) 0%, var(--card-b) 100%);
+    transition: background 0.4s ease;
   }
 
   ::selection { background: #D4AF37; color: #120303; }
+
+  .bg-void { background-color: var(--void) !important; }
+  .bg-maroon-deep { background-color: var(--maroon-deep) !important; }
+  .border-maroon-deep { border-color: var(--maroon-deep) !important; }
 
   @media (prefers-reduced-motion: reduce) {
     .fade-up, .seal-pulse { animation: none; opacity: 1; transform: none; }
   }
 
   .scheme-card {
-    background: linear-gradient(135deg, #2A0808 0%, #1A0505 100%);
+    background: linear-gradient(135deg, var(--scheme-a) 0%, var(--scheme-b) 100%);
     border: 1px solid rgba(212,175,55,0.25);
+    transition: background 0.4s ease;
   }
 
   a:focus-visible, button:focus-visible {
@@ -154,6 +186,192 @@
   .range-gold {
     accent-color: #D4AF37;
   }
+
+  /* NAV DROPDOWN MENU */
+  .nav-menu-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 230px;
+    background: var(--maroon-deep);
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 70;
+  }
+  .nav-menu-panel.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .nav-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: #F5F0E6;
+    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
+  .nav-menu-item:hover {
+    background: rgba(212,175,55,0.12);
+    color: #E6CA65;
+  }
+  .nav-menu-divider {
+    height: 1px;
+    background: rgba(212,175,55,0.15);
+    margin: 6px 4px;
+  }
+  .theme-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid #D4AF37;
+    flex-shrink: 0;
+  }
+
+  /* CATALOGUE OVERLAY */
+  #catalogue-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: var(--void);
+    overflow-y: auto;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  #catalogue-overlay.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .cat-search-input {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(212,175,55,0.3);
+  }
+  .cat-search-input:focus {
+    border-color: #D4AF37;
+    outline: none;
+  }
+  .cat-item-card {
+    background: linear-gradient(155deg, var(--card-a) 0%, var(--card-b) 100%);
+    border: 1px solid rgba(212,175,55,0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .cat-item-card:hover {
+    box-shadow: 0 0 20px rgba(212,175,55,0.3), 0 0 0 1px rgba(212,175,55,0.5);
+    transform: translateY(-3px);
+  }
+
+  /* CHATBOT WIDGET */
+  #chat-toggle-btn {
+    position: fixed;
+    right: 18px;
+    bottom: 88px;
+    z-index: 65;
+    box-shadow: 0 0 0 1px rgba(212,175,55,0.5), 0 8px 24px rgba(0,0,0,0.6);
+    animation: chatBounceIn 0.5s ease;
+  }
+  @keyframes chatBounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  .chat-bubble-hint {
+    position: fixed;
+    right: 84px;
+    bottom: 98px;
+    z-index: 64;
+    background: var(--maroon-deep);
+    border: 1px solid rgba(212,175,55,0.4);
+    color: #F5F0E6;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    animation: fadeUp 0.6s ease 1.2s both, hintPulse 2.5s ease-in-out 2s infinite;
+  }
+  @keyframes hintPulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  #chat-window {
+    position: fixed;
+    right: 18px;
+    bottom: 88px;
+    z-index: 66;
+    width: min(360px, calc(100vw - 36px));
+    height: min(500px, calc(100vh - 140px));
+    background: var(--maroon-deep);
+    border: 1px solid rgba(212,175,55,0.35);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(212,175,55,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  #chat-window.open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chat-msg {
+    max-width: 82%;
+    padding: 9px 13px;
+    border-radius: 14px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .chat-msg-bot {
+    align-self: flex-start;
+    background: rgba(212,175,55,0.12);
+    border: 1px solid rgba(212,175,55,0.25);
+    color: #F5F0E6;
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg-user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #D4AF37 0%, #C9A54E 100%);
+    color: #2A0808;
+    font-weight: 500;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-quick-btn {
+    border: 1px solid rgba(212,175,55,0.4);
+    color: #E6CA65;
+    font-size: 11.5px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+  .chat-quick-btn:hover { background: rgba(212,175,55,0.15); }
 </style>
 </head>
 <body class="bg-void text-cream font-body texture-overlay">
@@ -200,15 +418,52 @@
           <p class="text-[9px] sm:text-xs text-cream/50 tracking-widest uppercase whitespace-nowrap overflow-hidden text-ellipsis">Railway Road · Rohtak</p>
         </div>
       </div>
-      <div class="hidden md:flex items-center gap-8 font-display text-sm tracking-wider text-cream/80 shrink-0">
+      <div class="hidden md:flex items-center gap-7 font-display text-sm tracking-wider text-cream/80 shrink-0">
         <a href="#scheme" class="hover:text-gold transition">Investment Scheme</a>
         <a href="#collections" class="hover:text-gold transition">Collections</a>
+        <a href="#services" class="hover:text-gold transition">Our Services</a>
         <a href="#about" class="hover:text-gold transition">About</a>
-        <a href="#contact" class="hover:text-gold transition">Location</a>
+        <a href="#contact" class="hover:text-gold transition">Contact Us</a>
       </div>
-      <a href="https://wa.me/918603335000" target="_blank" class="shrink-0 btn-gold text-maroon-deep font-semibold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-display tracking-wide whitespace-nowrap">
-        WhatsApp
-      </a>
+
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="https://wa.me/918603335000" target="_blank" class="shrink-0 btn-gold text-maroon-deep font-semibold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-display tracking-wide whitespace-nowrap">
+          WhatsApp
+        </a>
+
+        <!-- MENU DROPDOWN -->
+        <div class="relative">
+          <button id="nav-menu-btn" aria-label="Open menu" aria-expanded="false"
+            class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gold/40 flex items-center justify-center text-gold hover:bg-gold/10 transition">
+            <span class="text-lg leading-none">☰</span>
+          </button>
+          <div id="nav-menu-panel" class="nav-menu-panel">
+            <button class="nav-menu-item" onclick="openAdminLogin()">
+              <span>🔐</span> Admin Login
+            </button>
+            <a href="#contact" class="nav-menu-item" onclick="closeNavMenu()">
+              <span>📍</span> Contact Us
+            </a>
+            <a href="#services" class="nav-menu-item" onclick="closeNavMenu()">
+              <span>💎</span> Our Services
+            </a>
+            <div class="nav-menu-divider md:hidden"></div>
+            <a href="#collections" class="nav-menu-item md:hidden" onclick="closeNavMenu()">
+              <span>✦</span> Collections
+            </a>
+            <a href="#scheme" class="nav-menu-item md:hidden" onclick="closeNavMenu()">
+              <span>💰</span> Investment Scheme
+            </a>
+            <div class="nav-menu-divider"></div>
+            <button class="nav-menu-item" onclick="setTheme('maroon'); closeNavMenu();">
+              <span class="theme-dot" style="background:#3D0C0C;"></span> Red / Maroon Theme
+            </button>
+            <button class="nav-menu-item" onclick="setTheme('black'); closeNavMenu();">
+              <span class="theme-dot" style="background:#0d0d0d;"></span> Black Theme
+            </button>
+          </div>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -274,7 +529,7 @@
       <h2 class="font-display text-3xl sm:text-4xl gold-gradient-text">Crafted For Every Occasion</h2>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
-      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block" onclick="openCatalogue('bridal')">
         <div class="aspect-square overflow-hidden">
           <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500&q=75&auto=format&fit=crop" alt="Bridal Ranihaars" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
         </div>
@@ -283,7 +538,7 @@
           <p class="text-cream/50 text-xs mt-1">Antique Kundan &amp; Meenakari sets</p>
         </div>
       </div>
-      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block" onclick="openCatalogue('everyday')">
         <div class="aspect-square overflow-hidden">
           <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=75&auto=format&fit=crop" alt="Lightweight Rings" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
         </div>
@@ -292,7 +547,7 @@
           <p class="text-cream/50 text-xs mt-1">Delicate rings, diamond pendants</p>
         </div>
       </div>
-      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block" onclick="openCatalogue('bangles')">
         <div class="aspect-square overflow-hidden">
           <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=75&auto=format&fit=crop" alt="Heritage Bangles" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
         </div>
@@ -301,7 +556,7 @@
           <p class="text-cream/50 text-xs mt-1">Traditional Peachli-style craft</p>
         </div>
       </div>
-      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block">
+      <div class="card-texture gold-border-glow rounded-xl overflow-hidden group cursor-pointer block" onclick="openCatalogue('diamonds')">
         <div class="aspect-square overflow-hidden">
           <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=75&auto=format&fit=crop" alt="Certified Diamonds" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
         </div>
@@ -312,6 +567,48 @@
       </div>
     </div>
     <p class="text-center text-cream/40 text-xs mt-6 mb-8">Also available: Pearl &amp; Emerald Kundan sets, Amber dangle earrings, Moonstone spiral silver earrings</p>
+  </section>
+
+  <div class="ornate-divider max-w-4xl mx-auto"></div>
+
+  <!-- OUR SERVICES -->
+  <section id="services" class="px-6 py-20 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-gold-champagne text-xs tracking-[0.3em] uppercase mb-3 font-display">What We Offer</p>
+      <h2 class="font-display text-3xl sm:text-4xl gold-gradient-text">Our Services</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-3xl mb-3">💍</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">Custom Jewellery Design</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Bring your own design or work with our craftsmen to create a bespoke piece for your special occasion.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-3xl mb-3">🔁</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">Gold Exchange &amp; Valuation</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Fair, transparent valuation on your old gold — exchange it toward a fresh purchase.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-3xl mb-3">🛠️</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">Repair &amp; Polishing</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Onsite repair, resizing, and polishing services done with care by our in-house team.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-3xl mb-3">✅</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">BIS Hallmark Certification</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Every gold piece is 100% BIS Hallmarked for guaranteed purity.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-3xl mb-3">💰</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">12+One Investment Plan</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Save monthly toward your next purchase and get a bonus on the 13th installment.</p>
+      </div>
+      <div class="card-texture gold-border-glow rounded-2xl p-7">
+        <div class="text-gold text-3xl mb-3">🚚</div>
+        <h3 class="font-display text-gold-champagne text-base mb-2 tracking-wide">Home Consultation</h3>
+        <p class="text-cream/60 text-xs leading-relaxed">Book a private consultation and view select pieces at your convenience.</p>
+      </div>
+    </div>
   </section>
 
   <div class="ornate-divider max-w-4xl mx-auto"></div>
@@ -444,6 +741,51 @@
     </form>
   </section>
 
+  <!-- CATALOGUE OVERLAY (per-category product grid) -->
+  <div id="catalogue-overlay" aria-hidden="true">
+    <div class="sticky top-0 z-10 bg-void/95 backdrop-blur-md border-b border-gold/20 px-4 sm:px-6 py-4">
+      <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <button onclick="closeCatalogue()" aria-label="Back" class="w-9 h-9 rounded-full border border-gold/40 flex items-center justify-center text-gold hover:bg-gold/10 transition shrink-0">←</button>
+          <h2 id="cat-title" class="font-display text-lg sm:text-2xl gold-gradient-text truncate">Collection</h2>
+        </div>
+        <a href="https://wa.me/918603335000" target="_blank" class="hidden sm:inline-block btn-gold text-maroon-deep font-semibold text-xs px-4 py-2 rounded-full font-display tracking-wide whitespace-nowrap">Enquire on WhatsApp</a>
+      </div>
+      <div class="max-w-6xl mx-auto mt-4 relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gold/70 text-sm">🔍</span>
+        <input type="text" id="cat-search" oninput="filterCatalogueItems()" placeholder="Search within this collection..."
+          class="cat-search-input w-full rounded-full pl-10 pr-4 py-3 text-cream placeholder-cream/30 text-sm">
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <p id="cat-subtitle" class="text-cream/50 text-sm mb-8 text-center"></p>
+      <div id="cat-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"></div>
+      <p id="cat-empty" class="hidden text-center text-cream/40 text-sm py-16">No items match your search. Try a different keyword, or ask us directly on WhatsApp.</p>
+    </div>
+  </div>
+
+  <!-- ADMIN LOGIN MODAL -->
+  <div id="admin-modal" class="fixed inset-0 z-[95] hidden items-center justify-center bg-black/70 px-4" aria-hidden="true">
+    <div class="scheme-card rounded-2xl p-7 sm:p-8 w-full max-w-sm relative">
+      <button onclick="closeAdminLogin()" aria-label="Close" class="absolute top-4 right-4 text-cream/50 hover:text-gold transition">✕</button>
+      <h3 class="font-display text-xl gold-gradient-text mb-1 text-center">Admin Login</h3>
+      <p class="text-cream/40 text-xs text-center mb-6">Staff &amp; showroom access only</p>
+      <form id="admin-login-form" class="space-y-4" onsubmit="return handleAdminLogin(event)">
+        <div>
+          <label class="block text-cream/70 text-xs uppercase tracking-wider mb-2 font-display">Username</label>
+          <input type="text" id="admin-user" required class="w-full bg-void/60 border border-gold/25 rounded-lg px-4 py-2.5 text-cream text-sm focus:border-gold outline-none transition">
+        </div>
+        <div>
+          <label class="block text-cream/70 text-xs uppercase tracking-wider mb-2 font-display">Password</label>
+          <input type="password" id="admin-pass" required class="w-full bg-void/60 border border-gold/25 rounded-lg px-4 py-2.5 text-cream text-sm focus:border-gold outline-none transition">
+        </div>
+        <p id="admin-error" class="hidden text-red-400 text-xs text-center">Admin panel is not connected yet — hook this up to your backend.</p>
+        <button type="submit" class="btn-gold text-maroon-deep font-bold w-full py-3 rounded-full font-display tracking-wide text-sm">Login</button>
+      </form>
+    </div>
+  </div>
+
   <!-- CONTACT / FOOTER -->
   <footer id="contact" class="bg-maroon-deep border-t border-gold/20 px-6 py-16">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -481,6 +823,38 @@
      class="wa-float w-14 h-14 rounded-full btn-gold text-maroon-deep flex items-center justify-center text-2xl">
     💬
   </a>
+
+  <!-- AI CHATBOT WIDGET -->
+  <div id="chat-bubble-hint" class="chat-bubble-hint" onclick="openChat()">May I help u? 👋</div>
+
+  <button id="chat-toggle-btn" onclick="toggleChat()" aria-label="Open chat assistant"
+    class="w-14 h-14 rounded-full bg-maroon-deep border-2 border-gold flex items-center justify-center text-gold text-2xl relative">
+    <span id="chat-icon-open">🤖</span>
+    <span id="chat-icon-close" class="hidden">✕</span>
+  </button>
+
+  <div id="chat-window" role="dialog" aria-label="PSJ Assistant chat">
+    <div class="bg-maroon-deep border-b border-gold/20 px-4 py-3.5 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full border-2 border-gold flex items-center justify-center text-gold text-sm shrink-0">🤖</div>
+      <div class="min-w-0">
+        <p class="font-display text-gold-champagne text-sm leading-tight">PSJ Assistant</p>
+        <p class="text-cream/40 text-[10px] leading-tight">Usually replies instantly</p>
+      </div>
+      <button onclick="toggleChat()" aria-label="Close chat" class="ml-auto text-cream/50 hover:text-gold transition text-lg">✕</button>
+    </div>
+    <div id="chat-messages"></div>
+    <div class="px-3 pb-2 flex gap-2 overflow-x-auto">
+      <button class="chat-quick-btn shrink-0" onclick="sendQuickMsg('Today\'s gold rate?')">Today's gold rate?</button>
+      <button class="chat-quick-btn shrink-0" onclick="sendQuickMsg('Tell me about the 12+One plan')">12+One plan</button>
+      <button class="chat-quick-btn shrink-0" onclick="sendQuickMsg('Showroom timings?')">Timings</button>
+      <button class="chat-quick-btn shrink-0" onclick="sendQuickMsg('I want to talk to someone')">Talk to a person</button>
+    </div>
+    <form id="chat-input-form" class="flex items-center gap-2 border-t border-gold/15 p-3">
+      <input type="text" id="chat-input" autocomplete="off" placeholder="Type your question..."
+        class="flex-1 bg-void/60 border border-gold/25 rounded-full px-4 py-2.5 text-cream placeholder-cream/30 text-sm focus:border-gold outline-none transition">
+      <button type="submit" aria-label="Send" class="btn-gold text-maroon-deep w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-sm">➤</button>
+    </form>
+  </div>
 
   <script>
     // 12+One Calculator
@@ -523,6 +897,250 @@
 
       window.open(`https://wa.me/918603335000?text=${text}`, '_blank');
     });
+
+    // ============ NAV MENU (dropdown: Admin Login, Contact, Services, Theme) ============
+    const navMenuBtn = document.getElementById('nav-menu-btn');
+    const navMenuPanel = document.getElementById('nav-menu-panel');
+
+    function toggleNavMenu() {
+      const isOpen = navMenuPanel.classList.toggle('open');
+      navMenuBtn.setAttribute('aria-expanded', isOpen);
+    }
+    function closeNavMenu() {
+      navMenuPanel.classList.remove('open');
+      navMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+    navMenuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleNavMenu();
+    });
+    document.addEventListener('click', function (e) {
+      if (!navMenuPanel.contains(e.target) && e.target !== navMenuBtn) {
+        closeNavMenu();
+      }
+    });
+
+    // ============ THEME TOGGLE (Red/Maroon <-> Black, gold stays constant) ============
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme === 'black' ? 'black' : 'maroon');
+    }
+    // default theme on load
+    setTheme('maroon');
+
+    // ============ ADMIN LOGIN MODAL ============
+    const adminModal = document.getElementById('admin-modal');
+    function openAdminLogin() {
+      closeNavMenu();
+      adminModal.classList.remove('hidden');
+      adminModal.classList.add('flex');
+      adminModal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => document.getElementById('admin-user').focus(), 50);
+    }
+    function closeAdminLogin() {
+      adminModal.classList.add('hidden');
+      adminModal.classList.remove('flex');
+      adminModal.setAttribute('aria-hidden', 'true');
+      document.getElementById('admin-error').classList.add('hidden');
+      document.getElementById('admin-login-form').reset();
+    }
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      // Placeholder only — connect this to your real authentication backend.
+      document.getElementById('admin-error').classList.remove('hidden');
+      return false;
+    }
+    adminModal.addEventListener('click', function (e) {
+      if (e.target === adminModal) closeAdminLogin();
+    });
+
+    // ============ CATALOGUE PAGES (per-category product grid + search) ============
+    const CATALOGUE_DATA = {
+      bridal: {
+        title: 'The Bridal Suite',
+        subtitle: 'Antique Kundan & Meenakari sets — heavy bridal jewellery crafted for your big day.',
+        items: [
+          { name: 'Antique Kundan Ranihaar', tag: 'Necklace Set', img: 'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Meenakari Bridal Choker', tag: 'Necklace Set', img: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Polki Bridal Maang Tikka', tag: 'Hair Jewellery', img: 'https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Temple Jewellery Set', tag: 'Necklace Set', img: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Kundan Jhumka Earrings', tag: 'Earrings', img: 'https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Bridal Nath (Nose Ring)', tag: 'Nose Jewellery', img: 'https://images.unsplash.com/photo-1620656798579-1284503a9c02?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Layered Rani Haar', tag: 'Necklace Set', img: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Bridal Vaddanam Belt', tag: 'Waist Belt', img: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=500&q=75&auto=format&fit=crop' },
+        ]
+      },
+      everyday: {
+        title: 'Everyday Luxury',
+        subtitle: 'Delicate rings, diamond pendants and lightweight pieces perfect for daily wear.',
+        items: [
+          { name: 'Minimal Diamond Ring', tag: 'Ring', img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Solitaire Pendant', tag: 'Pendant', img: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Everyday Stud Earrings', tag: 'Earrings', img: 'https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Thin Gold Chain', tag: 'Chain', img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Office-Wear Bracelet', tag: 'Bracelet', img: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Diamond Nose Pin', tag: 'Nose Jewellery', img: 'https://images.unsplash.com/photo-1600721391689-2564bb8055de?w=500&q=75&auto=format&fit=crop' },
+        ]
+      },
+      bangles: {
+        title: 'Heritage Bangles & Kadas',
+        subtitle: 'Traditional Peachli-style craft — bangles and kadas rooted in heritage design.',
+        items: [
+          { name: 'Peachli Gold Bangles (Set of 2)', tag: 'Bangles', img: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Engraved Kada', tag: 'Kada', img: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Antique Finish Bangles', tag: 'Bangles', img: 'https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Broad Bridal Kada Pair', tag: 'Kada', img: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Slim Everyday Bangles', tag: 'Bangles', img: 'https://images.unsplash.com/photo-1608042314453-ae338d80c427?w=500&q=75&auto=format&fit=crop' },
+        ]
+      },
+      diamonds: {
+        title: 'Certified Diamonds',
+        subtitle: 'Sterling silver & fine ornaments — certified diamonds for lasting brilliance.',
+        items: [
+          { name: 'Solitaire Diamond Ring', tag: 'Ring', img: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Diamond Tennis Bracelet', tag: 'Bracelet', img: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Diamond Drop Earrings', tag: 'Earrings', img: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Certified Diamond Pendant', tag: 'Pendant', img: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=500&q=75&auto=format&fit=crop' },
+          { name: 'Sterling Silver Chain', tag: 'Chain', img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=75&auto=format&fit=crop' },
+        ]
+      }
+    };
+
+    let currentCatalogueKey = null;
+    const catOverlay = document.getElementById('catalogue-overlay');
+    const catGrid = document.getElementById('cat-grid');
+    const catEmpty = document.getElementById('cat-empty');
+    const catSearch = document.getElementById('cat-search');
+
+    function renderCatalogueItems(items) {
+      catGrid.innerHTML = items.map(function (item) {
+        const waText = encodeURIComponent('Hi, I\'m interested in "' + item.name + '" from PSJ Premsons Jewellers. Could you share more details and pricing?');
+        return '<div class="cat-item-card rounded-xl overflow-hidden">' +
+          '<div class="aspect-square overflow-hidden">' +
+            '<img src="' + item.img + '" alt="' + item.name + '" class="w-full h-full object-cover" loading="lazy">' +
+          '</div>' +
+          '<div class="p-4">' +
+            '<p class="text-cream/40 text-[10px] uppercase tracking-wider mb-1">' + item.tag + '</p>' +
+            '<h4 class="font-display text-gold text-sm tracking-wide mb-3">' + item.name + '</h4>' +
+            '<a href="https://wa.me/918603335000?text=' + waText + '" target="_blank" class="block text-center border border-gold/40 text-gold-champagne text-xs py-2 rounded-full hover:bg-gold/10 transition font-display tracking-wide">Enquire</a>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      catEmpty.classList.toggle('hidden', items.length > 0);
+      catGrid.classList.toggle('hidden', items.length === 0);
+    }
+
+    function filterCatalogueItems() {
+      if (!currentCatalogueKey) return;
+      const query = catSearch.value.trim().toLowerCase();
+      const allItems = CATALOGUE_DATA[currentCatalogueKey].items;
+      const filtered = query
+        ? allItems.filter(function (item) {
+            return item.name.toLowerCase().includes(query) || item.tag.toLowerCase().includes(query);
+          })
+        : allItems;
+      renderCatalogueItems(filtered);
+    }
+
+    function openCatalogue(key) {
+      const data = CATALOGUE_DATA[key];
+      if (!data) return;
+      currentCatalogueKey = key;
+      document.getElementById('cat-title').textContent = data.title;
+      document.getElementById('cat-subtitle').textContent = data.subtitle;
+      catSearch.value = '';
+      renderCatalogueItems(data.items);
+      catOverlay.classList.add('open');
+      catOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      window.scrollTo({ top: 0 });
+    }
+
+    function closeCatalogue() {
+      catOverlay.classList.remove('open');
+      catOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // ============ AI CHATBOT WIDGET ============
+    const chatWindow = document.getElementById('chat-window');
+    const chatToggleBtn = document.getElementById('chat-toggle-btn');
+    const chatIconOpen = document.getElementById('chat-icon-open');
+    const chatIconClose = document.getElementById('chat-icon-close');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInputForm = document.getElementById('chat-input-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatBubbleHint = document.getElementById('chat-bubble-hint');
+    let chatStarted = false;
+
+    function addChatMessage(text, sender) {
+      const el = document.createElement('div');
+      el.className = 'chat-msg ' + (sender === 'user' ? 'chat-msg-user' : 'chat-msg-bot');
+      el.textContent = text;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function botReplyTo(userText) {
+      const t = userText.toLowerCase();
+      let reply = "Thanks for your message! For a precise answer, our team can help directly on WhatsApp — tap the green button, or ask me about our collections, the 12+One plan, gold rates, or showroom timings.";
+
+      if (t.includes('rate') || t.includes('price') || t.includes('gold rate')) {
+        reply = "Today's rate — 22K Gold: ₹7,215/gm, 24K Gold: ₹7,870/gm, Diamond (solitaire, approx): ₹45,000+/ct. Rates are updated daily — visit the showroom for an exact quote.";
+      } else if (t.includes('12+one') || t.includes('12 + one') || t.includes('scheme') || t.includes('plan') || t.includes('invest')) {
+        reply = "Our 12+One Investment Plan: pay 12 equal monthly installments, and PSJ adds a bonus value on the 13th month — great for building toward your next gold purchase. Try the calculator in the Investment Scheme section!";
+      } else if (t.includes('time') || t.includes('open') || t.includes('hour') || t.includes('close')) {
+        reply = "We're open Mon–Sat, 10:00 AM – 8:30 PM. Closed on Sundays. Located at Railway Road, Station Diary Mohalla, Rohtak.";
+      } else if (t.includes('bridal') || t.includes('wedding')) {
+        reply = "Our Bridal Suite features antique Kundan & Meenakari sets — perfect for weddings. Want me to open that collection for you?";
+      } else if (t.includes('location') || t.includes('address') || t.includes('where')) {
+        reply = "Shop No. 1389/5, Besides Regal Shoes, Railway Road, Station Diary Mohalla, Rohtak, Haryana – 124001.";
+      } else if (t.includes('person') || t.includes('human') || t.includes('talk') || t.includes('call')) {
+        reply = "Of course! You can reach our team directly on WhatsApp or call +91 86033 35000 — happy to help personally.";
+      } else if (t.includes('hi') || t.includes('hello') || t.includes('hey') || t.includes('namaste')) {
+        reply = "Hello! Welcome to PSJ Premsons Jewellers. Ask me about our collections, the 12+One plan, gold rates, or showroom timings — how can I help?";
+      }
+      setTimeout(function () { addChatMessage(reply, 'bot'); }, 500);
+    }
+
+    function sendQuickMsg(text) {
+      addChatMessage(text, 'user');
+      botReplyTo(text);
+    }
+
+    function openChat() {
+      chatWindow.classList.add('open');
+      chatToggleBtn.setAttribute('aria-label', 'Close chat assistant');
+      chatIconOpen.classList.add('hidden');
+      chatIconClose.classList.remove('hidden');
+      chatBubbleHint.style.display = 'none';
+      if (!chatStarted) {
+        chatStarted = true;
+        addChatMessage("May I help u? 👋 Ask me about our collections, gold rates, the 12+One plan, or showroom timings.", 'bot');
+      }
+      setTimeout(() => chatInput.focus(), 150);
+    }
+    function closeChat() {
+      chatWindow.classList.remove('open');
+      chatToggleBtn.setAttribute('aria-label', 'Open chat assistant');
+      chatIconOpen.classList.remove('hidden');
+      chatIconClose.classList.add('hidden');
+    }
+    function toggleChat() {
+      if (chatWindow.classList.contains('open')) closeChat();
+      else openChat();
+    }
+    chatInputForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const val = chatInput.value.trim();
+      if (!val) return;
+      addChatMessage(val, 'user');
+      chatInput.value = '';
+      botReplyTo(val);
+    });
+    // Auto-hide the hint bubble after a while so it doesn't linger forever
+    setTimeout(function () {
+      if (chatBubbleHint) chatBubbleHint.style.display = 'none';
+    }, 9000);
   </script>
 
 </body>
