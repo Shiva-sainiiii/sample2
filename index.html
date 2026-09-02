@@ -457,7 +457,7 @@
         <div class="relative">
           <button id="nav-menu-btn" aria-label="Open menu" aria-expanded="false"
             class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gold/40 flex items-center justify-center text-gold hover:bg-gold/10 transition">
-            <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
           </button>
           <div id="nav-menu-panel" class="nav-menu-panel">
             <button class="nav-menu-item" onclick="openAdminLogin()">
@@ -778,7 +778,7 @@
       <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
         <div class="flex items-center gap-3 min-w-0">
           <button onclick="closeCatalogue()" aria-label="Back" class="w-9 h-9 rounded-full border border-gold/40 flex items-center justify-center text-gold hover:bg-gold/10 transition shrink-0">
-            <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
           <h2 id="cat-title" class="font-display text-lg sm:text-2xl gold-gradient-text truncate">Collection</h2>
         </div>
@@ -802,7 +802,7 @@
   <div id="admin-modal" class="fixed inset-0 z-[95] hidden items-center justify-center bg-black/70 px-4" aria-hidden="true">
     <div class="scheme-card rounded-2xl p-7 sm:p-8 w-full max-w-sm relative">
       <button onclick="closeAdminLogin()" aria-label="Close" class="absolute top-4 right-4 text-cream/50 hover:text-gold transition">
-        <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
       <h3 class="font-display text-xl gold-gradient-text mb-1 text-center">Admin Login</h3>
       <p class="text-cream/40 text-xs text-center mb-6">Staff &amp; showroom access only</p>
@@ -868,30 +868,31 @@
 
   <!-- FLOATING WHATSAPP BUTTON -->
   <a href="https://wa.me/918603335000" target="_blank" aria-label="Chat on WhatsApp"
-     class="wa-float w-14 h-14 rounded-full btn-gold text-maroon-deep flex items-center justify-center">
-    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.2 7c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg>
+     class="wa-float w-14 h-14 rounded-full flex items-center justify-center" style="background:#25D366;">
+    <svg class="w-7 h-7 shrink-0" viewBox="0 0 32 32" fill="#FFFFFF"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.386.7 4.61 1.902 6.484L4 29l7.71-1.868A11.94 11.94 0 0 0 16.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3zm0 21.7c-1.95 0-3.76-.57-5.29-1.55l-.38-.24-4.57 1.11 1.15-4.46-.25-.4A9.63 9.63 0 0 1 5.3 15c0-5.35 4.35-9.7 9.7-9.7 5.35 0 9.7 4.35 9.7 9.7 0 5.35-4.35 9.7-9.7 9.7z"/><path d="M21.3 17.86c-.29-.15-1.71-.85-1.98-.94-.27-.1-.46-.15-.66.14-.19.29-.75.94-.92 1.13-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.44-.87-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.5-.66-.51h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.04 2.83 1.19 3.03c.15.19 2.05 3.13 4.97 4.39.69.3 1.24.48 1.66.61.7.22 1.34.19 1.84.12.56-.08 1.71-.7 1.95-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.34z"/></svg>
   </a>
 
   <!-- AI CHATBOT WIDGET -->
+
   <div id="chat-bubble-hint" class="chat-bubble-hint" onclick="openChat()">May I help u?</div>
 
   <button id="chat-toggle-btn" onclick="toggleChat()" aria-label="Open chat assistant"
     class="w-14 h-14 rounded-full bg-maroon-deep border-2 border-gold flex items-center justify-center text-gold relative">
-    <svg id="chat-icon-open" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-    <svg id="chat-icon-close" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    <svg id="chat-icon-open" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <svg id="chat-icon-close" class="w-5 h-5 shrink-0 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
   </button>
 
   <div id="chat-window" role="dialog" aria-label="PSJ Assistant chat">
     <div class="bg-maroon-deep border-b border-gold/20 px-4 py-3.5 flex items-center gap-3">
       <div class="w-9 h-9 rounded-full border-2 border-gold flex items-center justify-center text-gold shrink-0">
-        <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
       </div>
       <div class="min-w-0">
         <p class="font-display text-gold-champagne text-sm leading-tight">PSJ Assistant</p>
         <p class="text-cream/40 text-[10px] leading-tight">Usually replies instantly</p>
       </div>
       <button onclick="toggleChat()" aria-label="Close chat" class="ml-auto text-cream/50 hover:text-gold transition">
-        <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
     <div id="chat-messages"></div>
@@ -905,7 +906,7 @@
       <input type="text" id="chat-input" autocomplete="off" placeholder="Type your question..."
         class="flex-1 bg-void/60 border border-gold/25 rounded-full px-4 py-2.5 text-cream placeholder-cream/30 text-sm focus:border-gold outline-none transition">
       <button type="submit" aria-label="Send" class="btn-gold text-maroon-deep w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 18 9-18 9V3z"/></svg>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 12.6c-.6-.2-.6-1 .1-1.2L21 3.3c.6-.2 1.2.4 1 1L15.3 21.7c-.2.6-1 .6-1.3 0l-3.4-6.8-6.8-2.3z"/><path d="M10.6 14.9 21.7 4.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
       </button>
     </form>
   </div>
